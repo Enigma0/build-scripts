@@ -4,7 +4,8 @@ git pull
 sudo ./install
 sudo ldconfig
 
-sudo pip install -U conan
+sudo -H pip install --upgrade pip
+sudo -H pip install -U conan
 pip install -U conan
 conan remote update plex https://conan.plex.tv
 conan search -r plex *@*/public
