@@ -1,6 +1,7 @@
 cd ~/pmp/mpv-build
 git pull
 ./update
+./clean
 ./rebuild -j4
 sudo ./install
 sudo ldconfig
