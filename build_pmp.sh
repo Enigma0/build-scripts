@@ -26,6 +26,6 @@ sudo rm -R build/
 mkdir build
 cd build
 conan install ..
-cmake -DCMAKE_BUILD_TYPE=$SLN -DCMAKE_EXPORT_COMPILE_COMMANDS=on -DLINUX_X11POWER=on -DQTROOT=/opt/Qt5.7.1/5.7/gcc_64/ -DCMAKE_INSTALL_PREFIX=/usr/local/ .. 2>&1 | tee pmp_build.log
+cmake -DCMAKE_BUILD_TYPE=$SLN -DCMAKE_EXPORT_COMPILE_COMMANDS=on -DLINUX_X11POWER=on -DQTROOT=/opt/Qt5.8.0/5.8/gcc_64/ -DCMAKE_INSTALL_PREFIX=/usr/local/ .. 2>&1 | tee pmp_build.log
 make -j4
 sudo make install
