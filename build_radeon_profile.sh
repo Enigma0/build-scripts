@@ -4,7 +4,7 @@ QTROOT="qt5opt"
 sudo apt-get install subversion qt5-default
 
 if [ ! -d "$ROOT" ]; then
-  mkdir $HOME/svn
+  mkdir "$HOME/svn"
 fi
 
 if [ ! -d "$ROOT/radeon-profile" ]; then
@@ -19,8 +19,8 @@ make clean
 qmake -qt=$QTROOT
 make -j16
 sudo cp radeon-profile /usr/bin/radeon-profile
-sudo cp "$ROOT/radeon-profile/extra/radeon-profile.desktop" "/usr/share/applications/"
-sudo cp "$ROOT/radeon-profile/extra/radeon-profile.png" "/usr/share/icons/"
+sudo cp "$ROOT/radeon-profile/extra/radeon-profile.desktop /usr/share/applications/"
+sudo cp "$ROOT/radeon-profile/extra/radeon-profile.png /usr/share/icons/"
 
 if [ ! -d "$ROOT/radeon-profile-daemon" ]; then
   svn checkout https://github.com/marazmista/radeon-profile-daemon.git/trunk/radeon-profile-daemon
@@ -29,7 +29,7 @@ else
 fi
 
 if [ ! -f "/etc/systemd/system/radeon-profile-daemon.service" ]; then
-  sudo cp "$ROOT/radeon-profile-daemon/extra/radeon-profile-daemon.service" "/etc/systemd/system/"
+  sudo cp "$ROOT/radeon-profile-daemon/extra/radeon-profile-daemon.service /etc/systemd/system/"
   sudo systemctl enable radeon-profile-daemon.service
 fi
 
