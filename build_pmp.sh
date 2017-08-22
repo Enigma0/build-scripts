@@ -1,4 +1,5 @@
 PMP_ROOT=$HOME/git/pmp
+CORE_COUNT=16
 
 if [ "$1" == "Release" ] || [ "$1" == "Debug" ]; then
     SLN="$1"
@@ -15,7 +16,7 @@ git pull
 ./update
 #./clean
 #./rebuild -j16 2>&1 | tee $HOME/mpv_build.log
-./build -j16 2>&1 | tee $HOME/mpv_build.log
+./build -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
 sudo ./install
 sudo ldconfig
 
@@ -33,7 +34,7 @@ mkdir build
 cd build
 conan install ..
 cmake -DCMAKE_BUILD_TYPE=$SLN -DCMAKE_EXPORT_COMPILE_COMMANDS=on -DQTROOT=/opt/Qt5.9.1/5.9.1/gcc_64 -DCMAKE_INSTALL_PREFIX=/usr/local/ .. 2>&1 | tee $HOME/pmp_build.log
-make -j16 2>&1 | tee -a $HOME/pmp_build.log
+make -j$CORE_COUNT 2>&1 | tee -a $HOME/pmp_build.log
 sudo make install 2>&1 | tee -a $HOME/pmp_build.log
 
 #cmake params
