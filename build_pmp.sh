@@ -1,5 +1,5 @@
-PMP_ROOT=$HOME/git/pmp
-CORE_COUNT=16
+PMP_ROOT="$HOME/git/pmp"
+CORE_COUNT="16"
 
 if [ "$1" == "Release" ] || [ "$1" == "Debug" ]; then
     SLN="$1"
@@ -11,8 +11,26 @@ fi
 
 sudo killall plexmediaplayer
 
+if [ ! -d "$HOME/git" ]; then
+    cd $HOME
+    mkdir git
+fi
+
+if [ ! -d "$PMP_ROOT" ]; then
+    cd $HOME/git
+    mkdir pmp
+fi
+
+cd $PMP_ROOT
+
+if [ ! -d "$PMP_ROOT/mpv-build" ]; then
+    git clone https://github.com/mpv-player/mpv-build.git
+fi
+
 cd $PMP_ROOT/mpv-build
 git pull
+echo --enable-libmpv-shared > mpv_options
+#echo --disable-cplayer >> mpv_options
 ./update
 #./clean
 #./rebuild -j16 2>&1 | tee $HOME/mpv_build.log
@@ -27,8 +45,14 @@ conan remote add plex https://conan.plex.tv
 conan remote update plex https://conan.plex.tv
 conan search -r plex *@*/public
 
+cd $PMP_ROOT
+
+if [ ! -d "$PMP_ROOT/plex-media-player" ]; then
+    git clone git://github.com/plexinc/plex-media-player
+fi
+
 cd $PMP_ROOT/plex-media-player
-git pull
+git pull plex-media-player
 sudo rm -R build/
 mkdir build
 cd build
