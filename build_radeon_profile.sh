@@ -2,6 +2,7 @@ ROOT="$HOME/svn"
 QTROOT="qt5opt"
 CORE_COUNT="16"
 
+svn update
 sudo apt-get install subversion qt5-default
 
 if [ ! -d "$ROOT" ]; then

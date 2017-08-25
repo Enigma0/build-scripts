@@ -9,6 +9,7 @@ else
     exit
 fi
 
+svn update
 sudo killall plexmediaplayer
 
 if [ ! -d "$HOME/git" ]; then
