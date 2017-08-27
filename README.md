@@ -1,9 +1,8 @@
 These scripts are targeted at Ubuntu & tested on 16.04, 17.04, 17.10.
 
-They automate the checkout/setup process for their respective project
-so it's about as easy as just running the script and waiting.
+They automate the checkout/setup process for their respective project so it's about as easy as just running the script and waiting.
 
-The scripts should pull all necessary dependencies as well including Qt.
+The scripts should pull all necessary dependencies including Qt.
 
 # Dependencies
 ```
