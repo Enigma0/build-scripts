@@ -3,16 +3,14 @@ These scripts are targeted at Ubuntu & tested on 16.04, 17.04, 17.10.
 They automate the checkout/setup process for their respective project
 so it's about as easy as just running the script and waiting.
 
-The scripts should pull all necessary dependencies as well.
+The scripts should pull all necessary dependencies as well including Qt.
 
 # Dependencies
-
 ```
 sudo apt-get install subversion git wget build-essential
 ```
 # Configuration
 ## Plex Media Player
-
 The script has a few defines of which only 1 ought to require tweaking potentially:
 
 *Only change if necessary:*
@@ -32,6 +30,7 @@ The script has a few defines of which only 1 ought to require tweaking potential
 * `mkdir svn && cd svn` (Optional)
 * `svn checkout https://github.com/Enigma0/build-scripts.git/trunk/ build-scripts`
 
+## Building
 ## Plex Media Player
 * `cd build-scripts` (or `git`/`svn` subfolder)
 * `./build_pmp.sh Release` (or use `Debug`)
