@@ -1,3 +1,5 @@
+QT_ROOT="/opt/Qt5.9.1"
+QT_SUBPATH="/5.9.1/gcc_64"
 PMP_ROOT="$HOME/git/pmp"
 CORE_COUNT="16"
 
@@ -11,6 +13,20 @@ fi
 
 svn update
 sudo killall plexmediaplayer
+sudo cp plexmediaplayer.desktop /usr/share/applications/
+sudo cp Plex*png /usr/share/icons/
+
+sudo apt-get install autoconf automake libtool libharfbuzz-dev libfreetype6-dev \
+libfontconfig1-dev libx11-dev libxrandr-dev libvdpau-dev libva-dev mesa-common-dev \
+libegl1-mesa-dev yasm libasound2-dev libpulse-dev libuchardet-dev zlib1g-dev \
+libfribidi-dev git libgnutls*-dev libgl1-mesa-dev libsdl2-dev cmake
+
+if [ ! -d "$QT_ROOT" ]; then
+    cd $HOME/Downloads
+    wget http://download.qt.io/official_releases/qt/5.9/5.9.1/qt-opensource-linux-x64-5.9.1.run
+    chmod +x qt-opensource-linux-x64-5.9.1.run
+    sudo ./qt-opensource-linux-x64-5.9.1.run    
+fi
 
 if [ ! -d "$HOME/git" ]; then
     cd $HOME
@@ -34,7 +50,7 @@ echo --enable-libmpv-shared > mpv_options
 #echo --disable-cplayer >> mpv_options
 ./update
 #./clean
-#./rebuild -j16 2>&1 | tee $HOME/mpv_build.log
+#./rebuild -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
 ./build -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
 sudo ./install
 sudo ldconfig
@@ -58,7 +74,7 @@ sudo rm -R build/
 mkdir build
 cd build
 conan install ..
-cmake -DCMAKE_BUILD_TYPE=$SLN -DCMAKE_EXPORT_COMPILE_COMMANDS=on -DQTROOT=/opt/Qt5.9.1/5.9.1/gcc_64 -DCMAKE_INSTALL_PREFIX=/usr/local/ .. 2>&1 | tee $HOME/pmp_build.log
+cmake -DCMAKE_BUILD_TYPE=$SLN -DCMAKE_EXPORT_COMPILE_COMMANDS=on -DQTROOT=$QT_ROOT$QT_SUBPATH -DLINUX_X11POWER=on -DCMAKE_INSTALL_PREFIX=/usr/local/ .. 2>&1 | tee $HOME/pmp_build.log
 make -j$CORE_COUNT 2>&1 | tee -a $HOME/pmp_build.log
 sudo make install 2>&1 | tee -a $HOME/pmp_build.log
 
