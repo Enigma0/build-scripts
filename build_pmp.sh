@@ -13,7 +13,10 @@ fi
 
 svn update
 sudo killall plexmediaplayer
-sudo cp plexmediaplayer.desktop /usr/share/applications/
+
+if [ ! -f "/usr/share/applications/plexmediaplayer.desktop" ]; then
+    sudo cp plexmediaplayer.desktop /usr/share/applications/
+fi
 sudo cp Plex*png /usr/share/icons/
 
 sudo apt-get install autoconf automake libtool libharfbuzz-dev libfreetype6-dev \
