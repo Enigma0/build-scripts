@@ -34,3 +34,12 @@ The script has a few defines of which only 1 ought to require tweaking potential
 ## Plex Media Player
 * `cd build-scripts` (or `git`/`svn` subfolder)
 * `./build_pmp.sh Release` (or use `Debug`)
+
+# Customization
+## Plex Media Player
+`plexmediaplayer.desktop` is copied into `/usr/share/applications/` with icons located at `/usr/share/icons/`
+
+Choose from 3 bundled icons or use your own:
+* Plex.png
+* Plex_square.png
+* Plex_shadow.png
