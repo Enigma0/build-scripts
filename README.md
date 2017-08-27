@@ -13,12 +13,15 @@ sudo apt-get install subversion git wget build-essential
 # Configuration
 ## Plex Media Player
 
-The script has 3 defines of which only 1 ought to require tweaking potentially:
+The script has a few defines of which only 1 ought to require tweaking potentially:
 
-* `QT_ROOT="/opt/Qt5.9.1"`          (Point to a different root as needed)
-* `QT_SUBPATH="/5.9.1/gcc_64"`      (Should match QT_ROOT)
-* `PMP_ROOT="$HOME/git/pmp"`        (Point to a different root as needed)
-* `CORE_COUNT="16"`                 (Adjust the `CORE_COUNT` param to suit your needs)
+*Only change if necessary:*
+* `QT_ROOT="/opt/Qt5.9.1"`
+* `QT_SUBPATH="/5.9.1/gcc_64"`
+* `PMP_ROOT="$HOME/git/pmp"`
+
+*Adjust the `CORE_COUNT` param to suit your needs:*
+* `CORE_COUNT="16"`
 
 # Usage
 ## Checkout
