@@ -17,7 +17,7 @@ sudo killall plexmediaplayer
 if [ ! -f "/usr/share/applications/plexmediaplayer.desktop" ]; then
     sudo cp plexmediaplayer.desktop /usr/share/applications/
 fi
-sudo cp Plex*png /usr/share/icons/
+sudo cp Plex*.png /usr/share/icons/
 
 sudo apt-get install autoconf automake libtool libharfbuzz-dev libfreetype6-dev \
 libfontconfig1-dev libx11-dev libxrandr-dev libvdpau-dev libva-dev mesa-common-dev \
@@ -63,16 +63,16 @@ sudo -H pip install -U conan
 pip install -U conan
 conan remote add plex https://conan.plex.tv
 conan remote update plex https://conan.plex.tv
-conan search -r plex *@*/public
+#conan search -r plex *@*/public
 
 cd $PMP_ROOT
 
-if [ ! -d "$PMP_ROOT/plex-media-player" ]; then
-    git clone git://github.com/plexinc/plex-media-player
+if [ ! -d "$PMP_ROOT/tv2" ]; then
+    git clone git://github.com/plexinc/plex-media-player -b tv2 tv2
 fi
 
-cd $PMP_ROOT/plex-media-player
-git pull plex-media-player
+cd $PMP_ROOT/tv2
+git pull
 sudo rm -R build/
 mkdir build
 cd build
