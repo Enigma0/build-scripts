@@ -1,3 +1,4 @@
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 QT_ROOT="/opt/Qt5.9.1"
 QT_SUBPATH="/5.9.1/gcc_64"
 PMP_ROOT="$HOME/git/pmp"
@@ -11,6 +12,7 @@ else
     exit
 fi
 
+cd $DIR
 svn update
 sudo killall plexmediaplayer
 
