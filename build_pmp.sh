@@ -69,11 +69,16 @@ conan remote update plex https://conan.plex.tv
 
 cd $PMP_ROOT
 
-if [ ! -d "$PMP_ROOT/tv2" ]; then
-    git clone git://github.com/plexinc/plex-media-player -b tv2 tv2
+#if [ ! -d "$PMP_ROOT/tv2" ]; then
+#    git clone git://github.com/plexinc/plex-media-player -b tv2 tv2
+#fi
+
+if [ ! -d "$PMP_ROOT/dist-2.2.0-rc" ]; then
+    git clone git://github.com/plexinc/plex-media-player -b dist-2.2.0-rc dist-2.2.0-rc
 fi
 
-cd $PMP_ROOT/tv2
+#cd $PMP_ROOT/tv2
+cd $PMP_ROOT/dist-2.2.0-rc
 git pull
 sudo rm -R build/
 mkdir build
