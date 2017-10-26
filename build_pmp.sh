@@ -2,7 +2,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 QT_ROOT="/opt/Qt5.9.1"
 QT_SUBPATH="/5.9.1/gcc_64"
 PMP_ROOT="$HOME/git/pmp"
-CORE_COUNT="16"
+CORE_COUNT="8"
 
 if [ "$1" == "Release" ] || [ "$1" == "Debug" ]; then
     SLN="$1"
@@ -69,16 +69,17 @@ conan remote update plex https://conan.plex.tv
 
 cd $PMP_ROOT
 
-if [ ! -d "$PMP_ROOT/tv2" ]; then
-    git clone git://github.com/plexinc/plex-media-player -b tv2 tv2
-fi
-
-#if [ ! -d "$PMP_ROOT/dist-2.2.0-rc" ]; then
-#    git clone git://github.com/plexinc/plex-media-player -b dist-2.2.0-rc dist-2.2.0-rc
+#if [ ! -d "$PMP_ROOT/tv2" ]; then
+#    git clone git://github.com/plexinc/plex-media-player -b tv2 tv2
 #fi
 
-cd $PMP_ROOT/tv2
-#cd $PMP_ROOT/dist-2.2.0-rc
+if [ ! -d "$PMP_ROOT/dist-2.2.0-rc" ]; then
+    git clone git://github.com/plexinc/plex-media-player -b dist-2.2.0-rc dist-2.2.0-rc
+fi
+
+#cd $PMP_ROOT/tv2
+cd $PMP_ROOT/dist-2.2.0-rc
+
 git pull
 sudo rm -R build/
 mkdir build
