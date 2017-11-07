@@ -2,13 +2,21 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 QT_ROOT="/opt/Qt5.9.1"
 QT_SUBPATH="/5.9.1/gcc_64"
 PMP_ROOT="$HOME/git/pmp"
-CORE_COUNT="16"
+CORE_COUNT="grep -c ^processor /proc/cpuinfo"
 
-if [ "$1" == "Release" ] || [ "$1" == "Debug" ]; then
+if [ "$1" == "release" ] || [ "$1" == "debug" ]; then
     SLN="$1"
     echo "$1 selected"
 else
-    echo "Use 'Release' or 'Debug'"
+    echo "First parameter requires: 'release' or 'debug'"
+    exit
+fi
+
+if [ "$2" == "rebuild" ] || [ "$2" == "build" ]; then
+    CFG="$2"
+    echo "$2 selected"
+else
+    echo "Second parameter requires: 'rebuild' or 'build'"
     exit
 fi
 
@@ -54,9 +62,14 @@ git pull
 echo --enable-libmpv-shared > mpv_options
 #echo --disable-cplayer >> mpv_options
 ./update
-#./clean
-#./rebuild -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
-./build -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
+
+if [ "$CFG" == "rebuild" ]; then
+    ./clean
+    ./rebuild -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
+elif [ "$CFG" == "build" ]; then
+    ./build -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
+fi
+
 sudo ./install
 sudo ldconfig
 
@@ -86,8 +99,12 @@ cd $PMP_ROOT/plex-media-player
 #cd $PMP_ROOT/dist-2.2.0-rc
 
 git pull
-sudo rm -R build/
-mkdir build
+
+if [ "$CFG" == "rebuild" ]; then
+    sudo rm -R build/
+    mkdir build
+fi
+
 cd build
 conan install ..
 cmake -DCMAKE_BUILD_TYPE=$SLN -DCMAKE_EXPORT_COMPILE_COMMANDS=on -DQTROOT=$QT_ROOT$QT_SUBPATH -DLINUX_X11POWER=on -DCMAKE_INSTALL_PREFIX=/usr/local/ .. 2>&1 | tee $HOME/pmp_build.log
