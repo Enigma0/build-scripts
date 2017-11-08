@@ -4,6 +4,14 @@ QT_SUBPATH="/5.9.1/gcc_64"
 PMP_ROOT="$HOME/git/pmp"
 CORE_COUNT="grep -c ^processor /proc/cpuinfo"
 
+if [ "$1" == "help" ]; then
+    echo "Example usage:"
+    echo "./build_pmp.sh release rebuild 220"
+    echo "./build_pmp.sh debug rebuild tv2"
+    echo "./build_pmp.sh release build base"
+    exit
+fi
+
 if [ "$1" == "release" ] || [ "$1" == "debug" ]; then
     SLN="$1"
     echo "$1 selected"
@@ -13,10 +21,18 @@ else
 fi
 
 if [ "$2" == "rebuild" ] || [ "$2" == "build" ]; then
-    CFG="$2"
+    PROFILE="$2"
     echo "$2 selected"
 else
     echo "Second parameter requires: 'rebuild' or 'build'"
+    exit
+fi
+
+if [ "$3" == "220" ] || [ "$3" == "tv2" ] || [ "$3" == "base" ]; then
+    CONFIG="$3"
+    echo "$3 selected"
+else
+    echo "Third parameter requires: '220', 'tv2' or 'base'"
     exit
 fi
 
@@ -63,10 +79,10 @@ echo --enable-libmpv-shared > mpv_options
 #echo --disable-cplayer >> mpv_options
 ./update
 
-if [ "$CFG" == "rebuild" ]; then
+if [ "$PROFILE" == "rebuild" ]; then
     ./clean
     ./rebuild -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
-elif [ "$CFG" == "build" ]; then
+elif [ "$PROFILE" == "build" ]; then
     ./build -j$CORE_COUNT 2>&1 | tee $HOME/mpv_build.log
 fi
 
@@ -82,25 +98,32 @@ conan remote update plex https://conan.plex.tv
 
 cd $PMP_ROOT
 
-if [ ! -d "$PMP_ROOT/plex-media-player" ]; then
-    git clone git://github.com/plexinc/plex-media-player
+if [ "$CONFIG" == "base" ]; then
+    if [ ! -d "$PMP_ROOT/plex-media-player" ]; then
+        git clone git://github.com/plexinc/plex-media-player
+    fi
+    
+    cd $PMP_ROOT/plex-media-player
+    echo "'base' configuration selected"    
+elif  "$CONFIG" == "tv2" ]; then
+    if [ ! -d "$PMP_ROOT/tv2" ]; then
+        git clone git://github.com/plexinc/plex-media-player -b tv2 tv2
+    fi
+    
+    cd $PMP_ROOT/tv2
+    echo "'tv2' configuration selected"
+elif  "$CONFIG" == "220" ]; then
+    if [ ! -d "$PMP_ROOT/dist-2.2.0-rc" ]; then
+        git clone git://github.com/plexinc/plex-media-player -b dist-2.2.0-rc dist-2.2.0-rc
+    fi
+
+    cd $PMP_ROOT/dist-2.2.0-rc
+    echo "'220' configuration selected"
 fi
-
-#if [ ! -d "$PMP_ROOT/tv2" ]; then
-#    git clone git://github.com/plexinc/plex-media-player -b tv2 tv2
-#fi
-
-#if [ ! -d "$PMP_ROOT/dist-2.2.0-rc" ]; then
-#    git clone git://github.com/plexinc/plex-media-player -b dist-2.2.0-rc dist-2.2.0-rc
-#fi
-
-cd $PMP_ROOT/plex-media-player
-#cd $PMP_ROOT/tv2
-#cd $PMP_ROOT/dist-2.2.0-rc
 
 git pull
 
-if [ "$CFG" == "rebuild" ]; then
+if [ "$PROFILE" == "rebuild" ]; then
     sudo rm -R build/
     mkdir build
 fi
