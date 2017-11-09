@@ -105,14 +105,14 @@ if [ "$CONFIG" == "base" ]; then
     
     cd $PMP_ROOT/plex-media-player
     echo "'base' configuration selected"    
-elif  "$CONFIG" == "tv2" ]; then
+elif [ "$CONFIG" == "tv2" ]; then
     if [ ! -d "$PMP_ROOT/tv2" ]; then
         git clone git://github.com/plexinc/plex-media-player -b tv2 tv2
     fi
     
     cd $PMP_ROOT/tv2
     echo "'tv2' configuration selected"
-elif  "$CONFIG" == "220" ]; then
+elif [ "$CONFIG" == "220" ]; then
     if [ ! -d "$PMP_ROOT/dist-2.2.0-rc" ]; then
         git clone git://github.com/plexinc/plex-media-player -b dist-2.2.0-rc dist-2.2.0-rc
     fi
