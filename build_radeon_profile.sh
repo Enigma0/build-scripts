@@ -1,9 +1,9 @@
 ROOT="$HOME"
 #QTROOT="qt5opt"
-CORE_COUNT="8"
+CORE_COUNT="grep -c ^processor /proc/cpuinfo"
 
 svn update
-sudo apt-get install git qt5-default libqt5charts5*
+sudo apt-get install git qt5-default libqt5charts5* qt5-base libxrandr-dev libdrm2 libdrm-dev libdrm-radeon1 libdrm-common
 
 #if [ ! -d "$ROOT" ]; then
 #  mkdir "$HOME/svn"
