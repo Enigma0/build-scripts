@@ -1,9 +1,8 @@
-ROOT="$HOME"
+ROOT=$HOME
 #QTROOT="qt5opt"
 CORE_COUNT="grep -c ^processor /proc/cpuinfo"
 
-svn update
-sudo apt-get install git qt5-default libqt5charts5* qt5-base libxrandr-dev libdrm2 libdrm-dev libdrm-radeon1 libdrm-common
+sudo apt-get install git qt5-default libqt5charts5* libxrandr-dev libdrm2 libdrm-dev libdrm-radeon1 libdrm-common
 
 #if [ ! -d "$ROOT" ]; then
 #  mkdir "$HOME/svn"
@@ -21,7 +20,7 @@ make clean
 #qmake -qt=$QTROOT
 qmake
 make -j$CORE_COUNT
-sudo cp "radeon-profile" "/usr/bin/radeon-profile"
+sudo cp "target/radeon-profile" "/usr/bin/radeon-profile"
 sudo cp "$ROOT/radeon-profile/radeon-profile/extra/radeon-profile.desktop" "/usr/share/applications/"
 sudo cp "$ROOT/radeon-profile/radeon-profile/extra/radeon-profile.png" "/usr/share/icons/"
 
