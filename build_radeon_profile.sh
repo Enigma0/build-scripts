@@ -12,7 +12,7 @@ sudo apt-get install git qt5-default libqt5charts5* qt5-base libxrandr-dev libdr
 if [ ! -d "$ROOT/radeon-profile" ]; then
     git clone https://github.com/marazmista/radeon-profile.git $ROOT/radeon-profile
 else
-    git pull -C $ROOT/radeon-profile
+    git -C "$ROOT/radeon-profile" pull
 fi
 
 sudo killall radeon-profile
@@ -28,7 +28,7 @@ sudo cp "$ROOT/radeon-profile/radeon-profile/extra/radeon-profile.png" "/usr/sha
 if [ ! -d "$ROOT/radeon-profile-daemon" ]; then
     git clone https://github.com/marazmista/radeon-profile-daemon.git $ROOT/radeon-profile-daemon
 else
-    git pull -C $ROOT/radeon-profile-daemon
+    git -C "$ROOT/radeon-profile-daemon" pull
 fi
 
 if [ ! -f "/etc/systemd/system/radeon-profile-daemon.service" ]; then
